@@ -2,17 +2,17 @@ fs = require('fs')
 path = require('path')
 
 duAsync = (dir, cb) ->
-        total = 0
-        fs.lstat dir, (err, stat) ->
-                if err then return
-                if stat.isFile()
-                        total += stat.size
-                else if stat.isDirectory()
-                        fs.readdir dir, (err, files) ->
-                                if err then return
-                                for file in files
-                                        duAysnc path.join(dir, file), cb
-                cb(null, total)
+  total = 0
+  fs.lstat dir, (err, stat) ->
+    if err then return
+    if stat.isFile()
+      total += stat.size
+    else if stat.isDirectory()
+      fs.readdir dir, (err, files) ->
+        if err then return
+        for file in files
+          duAsync path.join(dir, file), cb
+    cb(null, total)
 
 DIR = '/'
 duAsync DIR, (err, total_bytes) ->
