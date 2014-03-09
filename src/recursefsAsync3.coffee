@@ -1,4 +1,5 @@
-
+fs = require('fs')
+path = require('path')
 
 duAsync3 = (dir, cb) ->
   total = 0
@@ -17,4 +18,11 @@ duAsync3 = (dir, cb) ->
 
   again(dir)
 
+  
+DIR = '/'
+duAsync3 DIR, (err, total_bytes) ->
+  total_kb = total_bytes / 1000.0
+  total_mb = total_kb / 1000.0
+
+  console.log("#{DIR}: #{total_mb.toFixed(3)} MB")
   
